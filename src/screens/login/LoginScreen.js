@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Text, TextInput } from "@react-native-material/core";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -34,9 +34,10 @@ const styles = StyleSheet.create({
 });
 
 const LoginScreen = ({ navigation }) => {
-
+  const [user,setUser] = useState(null);
+  const [pass,setpass] = useState(null);
   logIn = () => {
-    
+      user == 'admin' && pass == 'admin' && navigation.navigate('Drawer');
   }
 
   recoveryPassword = () => {
@@ -49,8 +50,8 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.containerIcon}>
           <Icon name="clock-time-five-outline" size={100} color="red"/>
         </View>
-        <TextInput variant="outlined" label="Correo" keyboardType={'email-address'} style={{ margin: 16 }} />
-        <TextInput variant="outlined" label="Contrasena" secureTextEntry={true} style={{ margin: 16 }} />
+        <TextInput value={user} onChangeText={(text)=>setUser(text)} variant="outlined" label="Correo" keyboardType={'email-address'} style={{ margin: 16 }} />
+        <TextInput value={pass} onChangeText={(text)=>setpass(text)} variant="outlined" label="Contrasena" secureTextEntry={true} style={{ margin: 16 }} />
         <Button style={styles.button} title={'Ingresar'} onPress={logIn}/>
         <View style={styles.containerSubTitle}>
           <Text variant={'subtitle1'} style={styles.subTitle} color={'#2980b9'} onPress={recoveryPassword}> Olvide mi contrasena</Text>
