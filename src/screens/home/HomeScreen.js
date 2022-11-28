@@ -1,8 +1,9 @@
 import { Button, Snackbar } from '@react-native-material/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { SelectList } from 'react-native-dropdown-select-list'
+import { SelectList } from 'react-native-dropdown-select-list';
+import BiometricAuthenticator from 'react-native-biometric-id';
 
 const styles = StyleSheet.create({
     container: {
@@ -44,17 +45,30 @@ const styles = StyleSheet.create({
     }
 });
 
-
 const HomeScreen = ({ navigation }) => {
     const messageSnackBar = "Recuerda activar tu ubicaciøn!";
     const [selected, setSelected] = useState("");
+    const [publicKey, setPublicKey] = useState("");
 
-    markRegistry = () =>{
-
-        //si hay registro
-        if(true){
-            navigation.navigate('RegistrationDetails');
-        }
+    markRegistry = async() =>{    
+        const optionalConfigObject = {
+            unifiedErrors: false, // use unified error messages (default false)
+            passcodeFallback: false,// if true is passed, itwill allow isSupported to return an error if the device is not enrolled in touch id/face id etc. Otherwise, it will just tell you what method is supported, even if the user is not enrolled.  (default false)
+            }
+        
+        BiometricAuthenticator.authenticate('to demo this react-native component', optionalConfigObject)
+        .then(success => {
+            if(success){
+                //si pone su huella
+                navigation.navigate('RegistrationDetails');
+                //console.log('registrado')
+            }else{
+                //sino
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
 
     const data = [

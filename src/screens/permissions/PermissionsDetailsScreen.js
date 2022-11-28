@@ -41,11 +41,12 @@ const styles = StyleSheet.create({
 
 });
 
-const PermissionsScreen = ({ navigation }) => {
-  const [initDate, setInitDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [openInitDate, setOpenInitDate] = useState(false);
-  const [openEndDate, setOpenEndDate] = useState(false);
+const PermissionsDetailsScreen = ({ navigation, route }) => {
+    const { id } = route.params;
+    const [initDate, setInitDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [openInitDate, setOpenInitDate] = useState(false);
+    const [openEndDate, setOpenEndDate] = useState(false);
   const data = [
     {key:'2', value:'Appliances'},
     {key:'3', value:'Cameras'},
@@ -73,11 +74,13 @@ const PermissionsScreen = ({ navigation }) => {
 
 
   createPermission = () => {
-
+    console.log('save');
   }
 
-  getPermissions = () =>{
-    navigation.navigate('ListPermissions', {listaDePermisos});
+  deletePermission = () =>{
+
+    //delete and navigate
+    //navigation.navigate('ListPermissions', {listaDePermisos});
   }
 
 
@@ -86,7 +89,7 @@ const PermissionsScreen = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.containerIcon}>
           <Icon name="clock-time-five-outline" size={100} color="red"/>
-          <Text style={styles.title}>Solicitar permiso</Text>
+          <Text>{'Permiso' + id}</Text>
           <View style={{margin: 12}}>
           <SelectList 
             boxStyles={styles.boxSelect}
@@ -121,12 +124,12 @@ const PermissionsScreen = ({ navigation }) => {
             style={styles.textArea} 
             maxLength={200}
           />
-          <Button style={styles.button} title={'Solicitar permiso'} onPress={createPermission}/>
-          <Button style={styles.button} title={'Historial de permisos'} onPress={getPermissions}/>
+          <Button style={styles.button} title={'Guardar cambios'} onPress={createPermission}/>
+          <Button style={styles.button} title={'Eliminar permiso'} onPress={deletePermission}/>
         </View>
       </View>
     </ScrollView>
   )
 }
 
-export default PermissionsScreen
+export default PermissionsDetailsScreen

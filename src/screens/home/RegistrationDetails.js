@@ -26,7 +26,11 @@ const styles = StyleSheet.create({
     }
 });
 
-const RegistrationDetails = () => {
+const RegistrationDetails = ({ navigation }) => {
+    backToHome = () => {
+        navigation.navigate('Drawer');
+    }
+
   return (
         <View style={styles.container}>
         <View style={styles.containerIcon}>
@@ -34,7 +38,7 @@ const RegistrationDetails = () => {
             <Text style={styles.title}>Registro exitoso !</Text>
             <Text style={styles.message}>Hora : 00:00</Text>
             <Text style={styles.message}>Tipo : Salida</Text>
-            <Button style={styles.button} title={'Volver al inicio'} onPress={markRegistry}/>
+            <Button style={styles.button} title={'Volver al inicio'} onPress={backToHome}/>
         </View>
     </View>
   )
